@@ -1,18 +1,18 @@
-import { Logo } from "./components/atoms/Logo"
-import { Title } from "./components/atoms/Title"
-import { Button } from "./components/atoms/Button"
 import { GlobalStyles } from "./styles/GlobalStyles"
+import { BrowserRouter } from "react-router-dom"
+import { Router } from "./components/routes/Router"
+import { ModalProvider } from "./contexts/Modal/ModalProvider"
 
 
 function App() {
 
   return (
-    <div className="App">
-      <GlobalStyles/>
-      <Logo/>
-      <Title text="Connect Lab"/>
-      <Button text="Login"/>
-    </div>
+    <ModalProvider>
+      <BrowserRouter>
+        <GlobalStyles/>
+        <Router/>
+      </BrowserRouter>
+    </ModalProvider>
   )
 }
 

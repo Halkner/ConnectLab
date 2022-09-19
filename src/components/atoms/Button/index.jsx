@@ -1,13 +1,15 @@
 import PropTypes from 'prop-types';
+import { StyledButton } from './styles';
 
 export const Button = props => {
     return (
-        <button>
+        <StyledButton highlight={props.highlight}>
             {props.text}
-        </button>
+        </StyledButton>
     )
 }
 
 Button.propTypes = {
     text: PropTypes.string,
+    highlight: PropTypes.bool,
 }

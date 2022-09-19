@@ -1,1 +1,3 @@
-export const Logo = () => <img src="../src/assets/logo.svg" alt="Logo"/>
+import { LogoImg } from "./styles";
+
+export const Logo = () => <LogoImg src="../src/assets/logo.png" alt="Logo"/>
