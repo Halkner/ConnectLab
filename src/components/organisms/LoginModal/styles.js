@@ -14,8 +14,8 @@ export const Background = styled.div`
 `
 
 export const ModalContainer = styled.div`
-    width: 500px;
-    height: 700px;
+    min-width: 500px;
+    height: 95%;
     box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
     background-color: #fff;
     position: relative;

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import {StyledTitle} from "../../atoms/Title/styles"
-import { StyledInput } from "../../Input/styles";
+import { StyledInput } from "../../atoms/Input/styles";
 
 
 export const Background = styled.div`

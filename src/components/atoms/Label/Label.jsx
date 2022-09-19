@@ -3,10 +3,11 @@ import { StyledLabel } from "./styles";
 
 export const Label = props => {
     return(
-        <StyledLabel>{props.text}</StyledLabel>
+        <StyledLabel htmlFor={props.forLabel}>{props.text}</StyledLabel>
     )
 }
 
 Label.propTypes = {
     text: PropTypes.string,
+    forLabel: PropTypes.string,
 }

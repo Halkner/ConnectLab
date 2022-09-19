@@ -10,8 +10,9 @@ export const Login = () => {
 
     return(
         <>
-            {showLoginModal ? <LoginModal/> : null}
-            {showRegModal ? <RegisterModal/> : null}
+            {showLoginModal ? <LoginModal/> : ''}
+            {showRegModal ? <RegisterModal/> : '' }
+
             <StyledHeader>
                 <Nav>
                     <div>
@@ -21,7 +22,7 @@ export const Login = () => {
                         <ItemMenu onClick={() => openLoginModal()}>
                             Login
                         </ItemMenu>
-                        <ItemMenu onClick={() => openRegModal()}>
+                        <ItemMenu onClick={openRegModal}>
                             Registrar-se
                         </ItemMenu>
                     </ul>

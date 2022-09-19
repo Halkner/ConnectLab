@@ -1,13 +1,49 @@
 import * as SM from './styles'
-import { Input } from '../../Input'
+import { Input } from '../../atoms/Input'
 import { Title } from '../../atoms/Title'
 import { Label } from '../../atoms/Label/Label'
 import { Button } from '../../atoms/Button'
 import { useModal } from '../../../contexts/Modal/useModal'
+import { StyledLabel } from '../../atoms/Label/styles'
+import { StyledInput } from '../../atoms/Input/styles'
+import { useForm } from 'react-hook-form'
+import axios from 'axios'
 
 export const RegisterModal = () => {
 
     const {closeRegModal} = useModal()
+
+    const {register, handleSubmit} = useForm();
+
+    const handleRegister = data => {
+        alert(JSON.stringify(data))
+
+        const postFormat = {
+            email: data.email,
+            password: data.password,
+            fullName: data.fullname,
+            photoUrl: data.urlPhoto,
+            phone: data.phone,
+            userAddress: {
+                zipCode: data.cep,
+                street: data.adress,
+                number: data.houseNumber,
+                neighborhood: data.neighborhood,
+                city: data.city,
+                state: data.state,
+                complement: data.complement
+            }
+        }
+
+            axios.post("https://connectlab.onrender.com/auth/login", postFormat)
+            .then(() => {
+            alert(`Usuário ${data.email} autenticado!`)
+            })
+            .catch(() => {
+            alert(`O usuário ${data.email} não existe!`)
+            })
+    }
+
 
     return(
         <SM.Background>
@@ -17,51 +53,54 @@ export const RegisterModal = () => {
                 <div className='modal-content'>
                     <Title text="Cadastrar" />
 
-                    <form>
+                    <form onSubmit={handleSubmit(handleRegister)}>
                         <div className='form-wrapper'>
                             <div className='form-container-one'>
-                                <Label text="Nome Completo*"/>
-                                <Input placeholder="Seu nome" value="Matheus Adriano Martins" req={true}/>
+                                <StyledLabel htmlFor="fullname">Nome Completo*</StyledLabel>
+                                <StyledInput placeholder="Seu nome" type="string" name="fullname" {...register("fullname")} required/>
 
-                                <Label text="URL Foto perfil"/>
-                                <Input placeholder="Sua foto"/>
+                                <StyledLabel htmlFor="urlPhoto">URL foto perfil</StyledLabel>
+                                <StyledInput placeholder="Sua foto" type="url" name="urlPhoto" {...register("urlPhoto")}/>
 
-                                <Label text="Senha*"/>
-                                <Input placeholder="Sua senha" type="password" req={true} minLength={8} maxLength={20}/>
+                                <StyledLabel htmlFor="password">Senha*</StyledLabel>
+                                <StyledInput placeholder="Sua senha" type="password" name="password" {...register("password")} minLength={8} required/>
 
-                                <Label text="CEP*"/>
-                                <Input placeholder="CEP" type="string" req={true} maxLength={9} />
+                                <StyledLabel htmlFor="cep">CEP*</StyledLabel>
+                                <StyledInput placeholder="Seu CEP" type="string" name="cep" {...register("cep")} required/>
 
-                                <Label text="Cidade*"/>
-                                <Input placeholder="Sua cidade" type="string" req={true}/>
+                                <StyledLabel htmlFor="city">Cidade*</StyledLabel>
+                                <StyledInput placeholder="Sua cidade" type="string" name="city" {...register("city")}/>
 
-                                <Label text="Número*"/>
-                                <Input placeholder="Seu número" type="string" req={true}/>
+                                <StyledLabel htmlFor="houseNumber">Número*</StyledLabel>
+                                <StyledInput placeholder="Seu número" type="string" name="houseNumber" {...register("houseNumber")} required/>
+
+                                <StyledLabel htmlFor="complement">Complemento</StyledLabel>
+                                <StyledInput placeholder="Seu logradouro/endereço" type="string" name="complement" {...register("complement")}/>
                             </div>
 
                             <div className='form-container-two'>
-                                <Label text="E-Mail*"/>
-                                <Input placeholder="Seu e-mail" type="string" req={true}/>
+                                <StyledLabel htmlFor="email">E-mail*</StyledLabel>
+                                <StyledInput placeholder="Seu e-mail" type="string" name="email" {...register("email")} required/>
 
-                                <Label text="Telefone"/>
-                                <Input placeholder="Seu telefone" type="string" maxLength={17}/>
+                                <StyledLabel htmlFor="phone">Telefone</StyledLabel>
+                                <StyledInput placeholder="(99) 9 9999-9999" type="phone" name="phone" {...register("phone")}/>
 
-                                <Label text="Confirmação da senha*"/>
-                                <Input placeholder="Confirme a senha" type="password" req={true} minLength={8} maxLength={20}/>
+                                <StyledLabel htmlFor="passwordConfirm">Senha*</StyledLabel>
+                                <StyledInput placeholder="Sua senha" type="password" name="passwordConfirm" {...register("passwordConfirm")}/>
 
-                                <Label text="Logradouro/Endereço*"/>
-                                <Input placeholder="Seu logradouro/endereço" type="string" req={true}/>
+                                <StyledLabel htmlFor="adress">Logradouro/Endereço*</StyledLabel>
+                                <StyledInput placeholder="Seu logradouro/endereço" type="string" name="adress" {...register("adress")} required/>
 
-                                <Label text="Complemento"/>
-                                <Input placeholder="Seu complemento" type="string"/>
+                                <StyledLabel htmlFor="state">Estado*</StyledLabel>
+                                <StyledInput placeholder="Seu complemento" type="string" name="state" {...register("state")} required/>
                                 
-                                <Label text="Bairro*"/>
-                                <Input placeholder="Seu bairro" type="string" req={true}/>
+                                <StyledLabel htmlFor="neighborhood">Bairro*</StyledLabel>
+                                <StyledInput placeholder="Seu logradouro/endereço" type="string" name="neighborhood" {...register("neighborhood")} required/>
                             </div>
                         </div>
 
                         <div className="button-container">
-                            <Button highlight={true} text="CADASTRAR"/>
+                            <Button highlight={true} text="CADASTRAR" type="submit"/>
                         </div>
                     </form>
                 </div>
