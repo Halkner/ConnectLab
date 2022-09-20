@@ -50,10 +50,10 @@ export const LoginModal = () => {
                             <Input placeholder="Digite sua senha..." type="password" {...register("senha")} inputName="senha"/> */}
 
                             <StyledLabel htmlFor="login">Login</StyledLabel>
-                            <StyledInput placeholder="Digite seu login..." type="string" name="login" {...register("login")}/>
+                            <StyledInput placeholder="Digite seu login..." type="string" name="login" {...register("login")}  required/>
 
                             <StyledLabel htmlFor="senha">Senha</StyledLabel>
-                            <StyledInput placeholder="Digite sua senha..." type="password" name="senha" {...register("senha")}/>
+                            <StyledInput placeholder="Digite sua senha..." type="password" name="senha" {...register("senha")} minLength={8} required/>
 
                             <div className="button-container">
                                 <Button highlight={true} text="ACESSAR" type="submit"/>

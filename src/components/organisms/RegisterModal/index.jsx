@@ -7,13 +7,15 @@ import { StyledInput } from '../../atoms/Input/styles'
 import { useForm } from 'react-hook-form'
 import {useAuth} from '../../../contexts/Authentication/useAuth'
 import axios from 'axios'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup';
+import { phoneNumber } from '../../../utils/validations'
+import { InputError } from '../../atoms/InputError'
 
 export const RegisterModal = () => {
 
-    const {closeRegModal} = useModal()
-    const {handleRegister} = useAuth()
-
-    const {register, handleSubmit, setValue, setFocus} = useForm();
+    const {closeRegModal} = useModal();
+    const {handleRegister} = useAuth();
 
     const handleCEP = (e) => {
         const cep = e.target.value.replace(/\D/g, '');
@@ -29,6 +31,26 @@ export const RegisterModal = () => {
         });
     }
 
+    const validationForm = yup.object().shape({
+        fullname: yup.string().required(),
+        email: yup.string().email().required(),
+        urlPhoto: yup.string().url(),
+        phone: yup.string().matches(phoneNumber),
+        password: yup.string().min(8).required(),
+        passwordConfirm: yup.string().oneOf([yup.ref('password'), null]).required(),
+        cep: yup.string().required(),
+        adress: yup.string().required(),
+        city: yup.string().required(),
+        houseNumber: yup.number().positive().integer().required(),
+        state: yup.string().required(),
+        neighborhood: yup.string().required(),
+        complement: yup.string(),
+    })
+
+    const {register, handleSubmit, setValue, setFocus, formState: { errors }} = useForm({
+        resolver: yupResolver(validationForm)
+    });
+
     return(
         <SM.Background>
             <SM.ModalContainer>
@@ -40,46 +62,58 @@ export const RegisterModal = () => {
                     <form onSubmit={handleSubmit(handleRegister)}>
                         <div className='form-wrapper'>
                             <div className='form-container-one'>
+
                                 <StyledLabel htmlFor="fullname">Nome Completo*</StyledLabel>
-                                <StyledInput placeholder="Seu nome e sobrenome" type="string" name="fullname" {...register("fullname")} required/>
+                                <StyledInput placeholder="Ex: Matheus Adriano Martins" type="string" name="fullname" {...register("fullname")}/>
+                                {errors?.fullname?.type && <InputError type={errors.fullname.type} field="fullname"/>}
 
                                 <StyledLabel htmlFor="urlPhoto">URL foto perfil</StyledLabel>
-                                <StyledInput placeholder="Sua foto" type="url" name="urlPhoto" {...register("urlPhoto")}/>
+                                <StyledInput placeholder="Ex: https://github.com/Halkner.png" type="url" name="urlPhoto" {...register("urlPhoto")}/>
 
                                 <StyledLabel htmlFor="password">Senha*</StyledLabel>
-                                <StyledInput placeholder="Sua senha" type="password" name="password" {...register("password")} minLength={8} required/>
+                                <StyledInput placeholder="Sua senha" type="password" name="password" {...register("password")}/>
+                                {errors?.password?.type && <InputError type={errors.password.type} field="password"/>}
 
                                 <StyledLabel htmlFor="cep">CEP*</StyledLabel>
-                                <StyledInput placeholder="Seu CEP" type="string" name="cep" {...register("cep")} onBlur={handleCEP} required/>
+                                <StyledInput placeholder="Ex: 99999-999" type="string" name="cep" {...register("cep")} onBlur={handleCEP}/>
+                                {errors?.cep?.type && <InputError type={errors.cep.type} field="cep"/>}
 
                                 <StyledLabel htmlFor="city">Cidade*</StyledLabel>
-                                <StyledInput placeholder="Sua cidade" type="string" name="city" {...register("city")}/>
+                                <StyledInput placeholder="Ex: Biguaçu" type="string" name="city" {...register("city")}/>
+                                {errors?.city?.type && <InputError type={errors.city.type} field="city"/>}
 
                                 <StyledLabel htmlFor="state">UF*</StyledLabel>
-                                <StyledInput placeholder="ex: SP" type="string" name="state" {...register("state")} maxLength={2} required/>
+                                <StyledInput placeholder="Ex: SP" type="string" name="state" {...register("state")}/>
+                                {errors?.state?.type && <InputError type={errors.state.type} field="state"/>}
 
                                 <StyledLabel htmlFor="complement">Complemento</StyledLabel>
-                                <StyledInput placeholder="Complemento..." type="string" name="complement" {...register("complement")}/>
+                                <StyledInput placeholder="Ex: Casa de dois andares" type="string" name="complement" {...register("complement")}/>
                             </div>
 
                             <div className='form-container-two'>
                                 <StyledLabel htmlFor="email">E-mail*</StyledLabel>
-                                <StyledInput placeholder="Seu e-mail" type="string" name="email" {...register("email")} required/>
+                                <StyledInput placeholder="Ex: hally1234@gmail.com" type="string" name="email" {...register("email")}/>
+                                {errors?.email?.type && <InputError type={errors.email.type} field="email"/>}
 
                                 <StyledLabel htmlFor="phone">Telefone</StyledLabel>
-                                <StyledInput placeholder="(99) 9 9999-9999" type="phone" name="phone" {...register("phone")}/>
+                                <StyledInput placeholder="Ex: (99) 9 9999-9999" type="tel" name="phone" {...register("phone")}/>
+                                {errors?.phone?.type && <InputError type={errors.phone.type} field="phone"/>}
 
                                 <StyledLabel htmlFor="passwordConfirm">Confirmar senha*</StyledLabel>
-                                <StyledInput placeholder="Sua senha" type="password" name="passwordConfirm" {...register("passwordConfirm")} minLength={8}/>
+                                <StyledInput placeholder="Sua senha" type="password" name="passwordConfirm" {...register("passwordConfirm")}/>
+                                {errors?.passwordConfirm?.type && <InputError type={errors.passwordConfirm.type} field="passwordConfirm"/>}
 
                                 <StyledLabel htmlFor="adress">Logradouro/Endereço*</StyledLabel>
-                                <StyledInput placeholder="Seu logradouro/endereço" type="string" name="adress" {...register("adress")} required/>
+                                <StyledInput placeholder="Ex: Rua Augusta" type="string" name="adress" {...register("adress")}/>
+                                {errors?.adress?.type && <InputError type={errors.adress.type} field="adress"/>}
 
                                 <StyledLabel htmlFor="houseNumber">Número*</StyledLabel>
-                                <StyledInput placeholder="Número da casa" type="string" name="houseNumber" {...register("houseNumber")} required/>
+                                <StyledInput placeholder="Ex: 42" type="string" name="houseNumber" {...register("houseNumber")}/>
+                                {errors?.houseNumber?.type && <InputError type={errors.houseNumber.type} field="houseNumber"/>}
                                 
                                 <StyledLabel htmlFor="neighborhood">Bairro*</StyledLabel>
-                                <StyledInput placeholder="Seu logradouro/endereço" type="string" name="neighborhood" {...register("neighborhood")} required/>
+                                <StyledInput placeholder="Ex: Centro " type="string" name="neighborhood" {...register("neighborhood")} />
+                                {errors?.neighborhood?.type && <InputError type={errors.neighborhood.type} field="neighborhood"/>}
                             </div>
                         </div>
 

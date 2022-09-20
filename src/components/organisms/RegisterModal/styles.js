@@ -1,6 +1,7 @@
-import styled from "styled-components";
+import styled from "styled-components"
 import {StyledTitle} from "../../atoms/Title/styles"
-import { StyledInput } from "../../atoms/Input/styles";
+import { StyledInput } from "../../atoms/Input/styles"
+import { StyledLabel } from "../../atoms/Label/styles"
 
 
 export const Background = styled.div`
@@ -33,7 +34,7 @@ export const ModalContainer = styled.div`
     }
 
     ${StyledInput}{
-        margin: 1em 0;
+        margin: 10px 0;
     }
 
     .modal-content{
@@ -54,10 +55,12 @@ export const ModalContainer = styled.div`
     }
 
     .form-container-one{
+        width: 50%;
         margin-right: 2em;
     }
 
     .form-container-two{
+        width: 50%;
         margin-left: 2em;
     }
 

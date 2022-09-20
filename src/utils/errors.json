@@ -1,0 +1,39 @@
+{
+    "fullname": {
+        "required": "É necessário preencher seu nome."
+    },
+    "email": {
+        "required": "É necessário preencher seu e-mail.",
+        "email": "O e-mail informado é inválido."
+    },
+    "phone": {
+        "matches": "É necessário preencher um telefone válido."
+    },
+    "password": {
+        "min": "Sua senha é muito curta.",
+        "required": "É necessário preencher sua senha."
+    },
+    "passwordConfirm": {
+        "required": "Por favor, confirme sua senha.",
+        "oneOf": "As senhas não são iguais."
+    },
+    "cep": {
+        "required": "É necessário preencher seu CEP."
+    },
+    "adress": {
+        "required": "É necessário preencher seu endereço."
+    },
+    "city": {
+        "required": "É necessário preencher sua cidade."
+    },
+    "houseNumber": {
+        "required": "É necessário preencher o número da sua casa."
+    },
+    "state": {
+        "required": "É necessário preencher sua UF(Unidade Federativa)."
+    },
+    "neighborhood": {
+        "required": "É necessário preencher seu bairro."
+    }
+
+}

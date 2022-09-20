@@ -1,12 +1,8 @@
 import { StyledInput } from "./styles"
-import { useForm } from "react-hook-form";
 
 import PropTypes from "prop-types";
 
-export const Input = props => {
-
-    const {register} = useForm();
-    
+export const Input = (props) => {
     return(
         <StyledInput 
         placeholder={props.placeholder} 
@@ -17,7 +13,7 @@ export const Input = props => {
         maxLength={props.maxLength}
         name={props.inputName}/>
     )
-}
+};
 
 Input.propTypes = {
     placeholder: PropTypes.string,
