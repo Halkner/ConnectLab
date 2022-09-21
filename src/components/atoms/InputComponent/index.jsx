@@ -2,7 +2,7 @@ import { StyledInput } from "./styles"
 
 import PropTypes from "prop-types";
 
-export const Input = (props) => {
+export const InputComponent = (props) => {
 
     const {placeholder, type, name} = props;
 
@@ -11,7 +11,7 @@ export const Input = (props) => {
     )
 };
 
-Input.propTypes = {
+InputComponent.propTypes = {
     placeholder: PropTypes.string,
     type: PropTypes.string,
     name: PropTypes.string

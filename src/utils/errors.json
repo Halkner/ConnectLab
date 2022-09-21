@@ -1,6 +1,15 @@
 {
     "fullname": {
-        "required": "É necessário preencher seu nome."
+        "required": "É necessário preencher seu nome.",
+        "matches": "Por favor, digite um nome válido!"
+    },
+    "loginEmail":{
+        "email": "O e-mail informado é inválido.",
+        "required": "É necessário preencher seu e-mail."
+    },
+    "loginPassword": {
+        "required": "É necessário preencher sua senha.",
+        "min": "A senha deve ter no mínimo 8 caracteres."
     },
     "email": {
         "required": "É necessário preencher seu e-mail.",
@@ -10,7 +19,7 @@
         "matches": "É necessário preencher um telefone válido."
     },
     "password": {
-        "min": "Sua senha é muito curta.",
+        "min": "Sua senha é muito curta, a senha deve ter no mínimo 8 caracteres.",
         "required": "É necessário preencher sua senha."
     },
     "passwordConfirm": {
@@ -18,7 +27,8 @@
         "oneOf": "As senhas não são iguais."
     },
     "cep": {
-        "required": "É necessário preencher seu CEP."
+        "required": "É necessário preencher seu CEP.",
+        "matches": "Por favor, digite um CEP válido."
     },
     "adress": {
         "required": "É necessário preencher seu endereço."

@@ -1,13 +1,13 @@
 import PropTypes from "prop-types";
 import { StyledLabel } from "./styles";
 
-export const Label = props => {
+export const LabelComponent = props => {
     return(
         <StyledLabel htmlFor={props.forLabel}>{props.text}</StyledLabel>
     )
 }
 
-Label.propTypes = {
+LabelComponent.propTypes = {
     text: PropTypes.string,
     forLabel: PropTypes.string,
 }

@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { StyledInput } from "../../atoms/Input/styles";
-import {StyledTitle} from "../../atoms/Title/styles"
+import { StyledInput } from "../../atoms/InputComponent/styles";
+import {StyledTitle} from "../../atoms/TitleComponent/styles"
 
 
 export const Background = styled.div`
@@ -33,7 +33,7 @@ export const ModalContainer = styled.div`
     }
 
     ${StyledInput}{
-        margin: 10px 0 6em;
+        margin: 10px 0;
     }
 
     .modal-content{

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { StyledButton } from './styles';
 
-export const Button = props => {
+export const ButtonComponent = props => {
     return (
         <StyledButton highlight={props.highlight} type={props.type}>
             {props.text}
@@ -9,7 +9,7 @@ export const Button = props => {
     )
 }
 
-Button.propTypes = {
+ButtonComponent.propTypes = {
     text: PropTypes.string,
     highlight: PropTypes.bool,
     type: PropTypes.string,

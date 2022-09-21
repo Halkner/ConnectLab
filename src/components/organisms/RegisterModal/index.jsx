@@ -1,15 +1,15 @@
 import * as SM from './styles'
-import { Title } from '../../atoms/Title'
-import { Button } from '../../atoms/Button'
+import { TitleComponent } from '../../atoms/TitleComponent'
+import { ButtonComponent } from '../../atoms/ButtonComponent'
 import { useModal } from '../../../contexts/Modal/useModal'
-import { StyledLabel } from '../../atoms/Label/styles'
-import { StyledInput } from '../../atoms/Input/styles'
+import { StyledLabel } from '../../atoms/LabelComponent/styles'
+import { StyledInput } from '../../atoms/InputComponent/styles'
 import { useForm } from 'react-hook-form'
 import {useAuth} from '../../../contexts/Authentication/useAuth'
 import axios from 'axios'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup';
-import { phoneNumber } from '../../../utils/validations'
+import { phoneNumberReg, nameReg, cepReg } from '../../../utils/validations'
 import { InputError } from '../../atoms/InputError'
 
 export const RegisterModal = () => {
@@ -33,13 +33,13 @@ export const RegisterModal = () => {
     }
 
     const validationForm = yup.object().shape({
-        fullname: yup.string().required(),
+        fullname: yup.string().matches(nameReg).required(),
         email: yup.string().email().required(),
         urlPhoto: yup.string().url(),
-        phone: yup.string().matches(phoneNumber),
+        phone: yup.string().matches(phoneNumberReg),
         password: yup.string().min(8).required(),
         passwordConfirm: yup.string().oneOf([yup.ref('password'), null]).required(),
-        cep: yup.string().required(),
+        cep: yup.string().matches(cepReg).required(),
         adress: yup.string().required(),
         city: yup.string().required(),
         houseNumber: yup.number().positive().integer().required(),
@@ -58,7 +58,7 @@ export const RegisterModal = () => {
                 <SM.CloseModalButton onClick={() => closeRegModal()}> X </SM.CloseModalButton>
 
                 <div className='modal-content'>
-                    <Title text="Cadastrar" />
+                    <TitleComponent text="Cadastrar" />
 
                     <form onSubmit={handleSubmit(handleRegister)}>
                         <div className='form-wrapper'>
@@ -120,7 +120,7 @@ export const RegisterModal = () => {
                         </div>
 
                         <div className="button-container">
-                            <Button highlight={true} text="CADASTRAR" type="submit"/>
+                            <ButtonComponent highlight={true} text="CADASTRAR" type="submit"/>
                         </div>
                     </form>
                 </div>

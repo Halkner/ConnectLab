@@ -1,12 +1,12 @@
 import PropTypes from "prop-types";
 import { StyledTitle } from "./styles";
 
-export const Title = props => {
+export const TitleComponent = props => {
     return(
         <StyledTitle>{props.text}</StyledTitle>
     )
 }
 
-Title.propTypes = {
+TitleComponent.propTypes = {
     text: PropTypes.string,
 }
