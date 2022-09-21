@@ -3,24 +3,16 @@ import { StyledInput } from "./styles"
 import PropTypes from "prop-types";
 
 export const Input = (props) => {
+
+    const {placeholder, type, name} = props;
+
     return(
-        <StyledInput 
-        placeholder={props.placeholder} 
-        value={props.value} 
-        type={props.type}
-        required={props.req}
-        minLength={props.minLength}
-        maxLength={props.maxLength}
-        name={props.inputName}/>
+        <StyledInput placeholder={placeholder}  type={type} name={name} />
     )
 };
 
 Input.propTypes = {
     placeholder: PropTypes.string,
-    value: PropTypes.string,
     type: PropTypes.string,
-    req: PropTypes.bool,
-    minLength: PropTypes.number,
-    maxLength: PropTypes.number,
-    inputName: PropTypes.string,
+    name: PropTypes.string
 }

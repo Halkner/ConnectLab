@@ -16,6 +16,7 @@ export const RegisterModal = () => {
 
     const {closeRegModal} = useModal();
     const {handleRegister} = useAuth();
+    
 
     const handleCEP = (e) => {
         const cep = e.target.value.replace(/\D/g, '');
@@ -64,8 +65,9 @@ export const RegisterModal = () => {
                             <div className='form-container-one'>
 
                                 <StyledLabel htmlFor="fullname">Nome Completo*</StyledLabel>
-                                <StyledInput placeholder="Ex: Matheus Adriano Martins" type="string" name="fullname" {...register("fullname")}/>
+                                <StyledInput placeholder="Ex: Matheus Adriano Martins" type="string" name="fullname" {...register("fullname")}/> 
                                 {errors?.fullname?.type && <InputError type={errors.fullname.type} field="fullname"/>}
+                                
 
                                 <StyledLabel htmlFor="urlPhoto">URL foto perfil</StyledLabel>
                                 <StyledInput placeholder="Ex: https://github.com/Halkner.png" type="url" name="urlPhoto" {...register("urlPhoto")}/>

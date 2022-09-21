@@ -5,7 +5,7 @@ import { AuthenticationContext } from "./AuthenticationContext";
 
 export const AuthenticationProvider = ({ children }) => {
 
-    const handleRegister = data => {
+    const handleRegister = (data) => {
         alert(JSON.stringify(data))
 
         const postFormat = {
@@ -34,8 +34,26 @@ export const AuthenticationProvider = ({ children }) => {
             })
     }
 
+    const Login = (data) => {
+        alert(JSON.stringify(data));
+
+        const postFormat = {
+            email: data.login,
+            password: data.senha,
+        }
+
+        axios.post("https://connectlab.onrender.com/auth/login", postFormat)
+        .then(() => {
+            alert(`Usuário ${data.login} autenticado!`)
+        })
+        .catch(() => {
+            alert(`O usuário ${data.login} não existe!`)
+        })
+
+    }
+
     return(
-        <AuthenticationContext.Provider value={{handleRegister}}>
+        <AuthenticationContext.Provider value={{handleRegister, Login}}>
             {children}
         </AuthenticationContext.Provider>
     )
