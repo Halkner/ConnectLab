@@ -18,7 +18,7 @@ export const AuthenticationProvider = ({ children }) => {
     useEffect(() => {
         const recoveredUser = sessionStorage.getItem("user");
         if (recoveredUser){
-            const userLocation = recoveredUser.userAddress.city;
+            const userLocation = sessionStorage.getItem("location");
             setAuth(JSON.parse(recoveredUser));
             setLocation(userLocation)
         }
@@ -39,7 +39,7 @@ export const AuthenticationProvider = ({ children }) => {
         
         sessionStorage.setItem("user", JSON.stringify(loggedUser));
         sessionStorage.setItem("token", accessToken);
-        sessionStorage.setLocation("location", userLocation)
+        sessionStorage.setItem("location", userLocation);
 
         api.defaults.headers.Authorization = `Bearer ${accessToken}`;
 
