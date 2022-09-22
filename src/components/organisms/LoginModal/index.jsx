@@ -8,7 +8,6 @@ import { StyledInput } from '../../atoms/InputComponent/styles'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup';
 import { useAuth } from '../../../contexts/Authentication/useAuth'
-import axios from 'axios'
 import { InputError } from '../../atoms/InputError'
 
 export const LoginModal = () => {
@@ -17,8 +16,8 @@ export const LoginModal = () => {
     const { handleLogin, isAuthenticated } = useAuth();
 
     const validationForm = yup.object().shape({
-        loginEmail: yup.string().email().required(),
-        loginPassword: yup.string().min(8).required(),
+        email: yup.string().email().required(),
+        password: yup.string().min(8).required(),
     })
 
     const {handleSubmit, register, formState:{errors}} = useForm({
@@ -37,13 +36,13 @@ export const LoginModal = () => {
                         <p>{String(isAuthenticated)}</p>
                         <form onSubmit={handleSubmit(handleLogin)}>
 
-                            <StyledLabel htmlFor="loginEmail">Login</StyledLabel>
-                            <StyledInput placeholder="Ex: hally1234@gmail.com" type="string" name="loginEmail" {...register("loginEmail")}  />
-                            {errors?.loginEmail?.type && <InputError type={errors.loginEmail.type} field="loginEmail"/>}
+                            <StyledLabel htmlFor="email">Login</StyledLabel>
+                            <StyledInput placeholder="Ex: hally1234@gmail.com" type="string" name="email" {...register("email")}  />
+                            {errors?.email?.type && <InputError type={errors.email.type} field="email"/>}
 
-                            <StyledLabel htmlFor="loginPassword">Senha</StyledLabel>
-                            <StyledInput placeholder="Digite sua senha..." type="password" name="loginPassword" {...register("loginPassword")} />
-                            {errors?.loginPassword?.type && <InputError type={errors.loginPassword.type} field="loginPassword"/>}
+                            <StyledLabel htmlFor="password">Senha</StyledLabel>
+                            <StyledInput placeholder="Digite sua senha..." type="password" name="password" {...register("password")} />
+                            {errors?.password?.type && <InputError type={errors.password.type} field="password"/>}
 
                             <div className="button-container">
                                 <ButtonComponent highlight={true} text="ACESSAR" type="submit"/>

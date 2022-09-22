@@ -9,12 +9,12 @@ function App() {
 
   return (
     <ModalProvider>
-      <BrowserRouter>
-        <AuthenticationProvider>
-          <GlobalStyles/>
-          <Router/>
-        </AuthenticationProvider>
-      </BrowserRouter>
+        <BrowserRouter>
+          <AuthenticationProvider>
+            <GlobalStyles/>
+            <Router/>
+          </AuthenticationProvider>
+        </BrowserRouter>
     </ModalProvider>
   )
 }

@@ -1,17 +1,57 @@
 import PropTypes from "prop-types";
-import axios from 'axios'
+
 
 import { AuthenticationContext } from "./AuthenticationContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from '../../api/axios'
+import { useNavigate } from "react-router-dom";
+
+const LOGIN_URL = "/auth/login"
 
 export const AuthenticationProvider = ({ children }) => {
-
     
+    const navigate = useNavigate();
+    const [auth, setAuth] = useState(null);
 
+    useEffect(() => {
+        const recoveredUser = sessionStorage.getItem("user");
+        
+        if (recoveredUser){
+            setAuth(recoveredUser);
+        }
+    }, [])
+    
+    
+    const handleLogin = async (data) => {
+        alert(JSON.stringify(data));
+        
+        const response = await axios.post(LOGIN_URL, data);
+            console.log(response.data);
+            
+            const accessToken = response?.data?.token;
+            const loggedUser = response?.data?.user;
+            
+            sessionStorage.setItem("user", loggedUser);
+            sessionStorage.setItem("token", accessToken);
+
+            axios.defaults.headers.Authorization = `Bearer ${accessToken}`;
+
+            setAuth(loggedUser);
+            navigate("/");
+    }
+    
+    const handleLogout = () => {
+        setAuth(null);
+        sessionStorage.removeItem("user");
+        sessionStorage.removeItem("token");
+        axios.defaults.headers.Authorization = null;
+        navigate("/login");
+    }
+    
     const handleRegister = (data) => {
-        alert(JSON.stringify(data))
-
-        const postFormat = {
+    alert(JSON.stringify(data));
+    
+    const postFormat = {
             email: data.email,
             password: data.password,
             fullName: data.fullname,
@@ -26,49 +66,19 @@ export const AuthenticationProvider = ({ children }) => {
                 state: data.state,
                 complement: data.complement
             }
-        }
+        };
 
             axios.post("https://connectlab.onrender.com/auth/register", postFormat)
             .then(() => {
-            alert(`Usuário ${data.email} autenticado!`)
+                alert(`Usuário ${data.email} cadastrado!`);
             })
             .catch(() => {
-            alert(`Falha no cadastro`)
+                alert(`Falha no cadastro`);
             })
     }
-
-    const {user, setUser} = useState(null)
-
-    const handleLogin = (data) => {
-        alert(JSON.stringify(data));
-
-        const postFormat = {
-            email: data.loginEmail,
-            password: data.loginPassword,
-        }
-
-        axios.post("https://connectlab.onrender.com/auth/login", postFormat)
-        .then(() => {
-            alert(`Usuário ${data.loginEmail} autenticado!`)
-            setUser({
-                token: data.token,
-                id: data.id, 
-                email: data.loginEmail
-            });
-            console.log(user);
-        })
-        .catch(() => {
-            alert(`O usuário ${data.loginEmail} e/ou senha não existem!`)
-        })
-
-    }
-
-    const handleLogout = () => {
-        setUser(null)
-    }
-
+    
     return(
-        <AuthenticationContext.Provider value={{handleRegister, handleLogin, isAuthenticated: !!user, handleLogout}}>
+        <AuthenticationContext.Provider value={{handleRegister, handleLogin, isAuthenticated: !!auth, handleLogout}}>
             {children}
         </AuthenticationContext.Provider>
     )
@@ -76,4 +86,4 @@ export const AuthenticationProvider = ({ children }) => {
 
 AuthenticationProvider.propTypes = {
     children: PropTypes.node,
-  };
+};

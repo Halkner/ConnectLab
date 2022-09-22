@@ -3,14 +3,6 @@
         "required": "É necessário preencher seu nome.",
         "matches": "Por favor, digite um nome válido!"
     },
-    "loginEmail":{
-        "email": "O e-mail informado é inválido.",
-        "required": "É necessário preencher seu e-mail."
-    },
-    "loginPassword": {
-        "required": "É necessário preencher sua senha.",
-        "min": "A senha deve ter no mínimo 8 caracteres."
-    },
     "email": {
         "required": "É necessário preencher seu e-mail.",
         "email": "O e-mail informado é inválido."

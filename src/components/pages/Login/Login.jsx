@@ -19,7 +19,7 @@ export const Login = () => {
                         <Logo/>
                     </div>
                     <ul>
-                        <ItemMenu onClick={() => openLoginModal()}>
+                        <ItemMenu onClick={openLoginModal}>
                             Login
                         </ItemMenu>
                         <ItemMenu onClick={openRegModal}>

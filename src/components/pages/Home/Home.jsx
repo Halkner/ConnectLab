@@ -4,17 +4,6 @@ import { useState, useEffect } from "react"
 import { TopBar } from "../../organisms/TopBar"
 
 export const Home = () => {
-
-    // useEffect(() => {
-    //     axios.get("https://connectlab.onrender.com/devices")
-    //     .then(() => {
-    //         console.log("Deu certo");
-    //     })
-    //     .catch(() => {
-    //         "Deu errado"
-    //     })
-    // }, [])
-
     return(
         <TopBar/>        
     )
