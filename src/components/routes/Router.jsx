@@ -5,9 +5,13 @@ import { Login } from "../pages/Login/Login";
 import PropTypes from "prop-types";
 
 export const Router = () => {
-    const {isAuthenticated} = useAuth();
-
+    
     const Private = ({ children }) => {
+        const {isAuthenticated, loading} = useAuth();
+
+        if(loading){
+            return <h1>Carregando...</h1>
+        }
 
         return isAuthenticated ? children : <Navigate to="/login"/>
     }

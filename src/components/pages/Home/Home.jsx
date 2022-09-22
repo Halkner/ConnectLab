@@ -2,9 +2,16 @@
 import axios from 'axios'
 import { useState, useEffect } from "react"
 import { TopBar } from "../../organisms/TopBar"
+import { WeatherBox } from '../../organisms/WeatherBox'
+import { MainHome } from './styles'
 
 export const Home = () => {
     return(
-        <TopBar/>        
+        <>
+            <TopBar/>
+            <MainHome>
+                <WeatherBox/>
+            </MainHome>
+        </>
     )
 }

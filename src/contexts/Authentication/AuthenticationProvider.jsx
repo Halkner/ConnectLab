@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import { AuthenticationContext } from "./AuthenticationContext";
 import { useEffect, useState } from "react";
-import axios from '../../api/axios'
+import api from '../../api/api'
 import { useNavigate } from "react-router-dom";
 
 const LOGIN_URL = "/auth/login"
@@ -12,39 +12,47 @@ export const AuthenticationProvider = ({ children }) => {
     
     const navigate = useNavigate();
     const [auth, setAuth] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [location, setLocation] = useState('');
 
     useEffect(() => {
         const recoveredUser = sessionStorage.getItem("user");
-        
         if (recoveredUser){
-            setAuth(recoveredUser);
+            const userLocation = recoveredUser.userAddress.city;
+            setAuth(JSON.parse(recoveredUser));
+            setLocation(userLocation)
         }
+        setLoading(false);
     }, [])
     
     
     const handleLogin = async (data) => {
         alert(JSON.stringify(data));
         
-        const response = await axios.post(LOGIN_URL, data);
-            console.log(response.data);
-            
-            const accessToken = response?.data?.token;
-            const loggedUser = response?.data?.user;
-            
-            sessionStorage.setItem("user", loggedUser);
-            sessionStorage.setItem("token", accessToken);
+        const response = await api.post(LOGIN_URL, data);
+        
+        console.log(response.data);
+        
+        const accessToken = response?.data?.token;
+        const loggedUser = response?.data?.user;
+        const userLocation = response?.data?.user?.userAddress?.city;
+        
+        sessionStorage.setItem("user", JSON.stringify(loggedUser));
+        sessionStorage.setItem("token", accessToken);
+        sessionStorage.setLocation("location", userLocation)
 
-            axios.defaults.headers.Authorization = `Bearer ${accessToken}`;
+        api.defaults.headers.Authorization = `Bearer ${accessToken}`;
 
-            setAuth(loggedUser);
-            navigate("/");
+        setLocation(userLocation);
+        setAuth(loggedUser);
+        navigate("/");
     }
     
     const handleLogout = () => {
         setAuth(null);
         sessionStorage.removeItem("user");
         sessionStorage.removeItem("token");
-        axios.defaults.headers.Authorization = null;
+        api.defaults.headers.Authorization = null;
         navigate("/login");
     }
     
@@ -68,7 +76,7 @@ export const AuthenticationProvider = ({ children }) => {
             }
         };
 
-            axios.post("https://connectlab.onrender.com/auth/register", postFormat)
+            api.post("https://connectlab.onrender.com/auth/register", postFormat)
             .then(() => {
                 alert(`Usuário ${data.email} cadastrado!`);
             })
@@ -78,7 +86,7 @@ export const AuthenticationProvider = ({ children }) => {
     }
     
     return(
-        <AuthenticationContext.Provider value={{handleRegister, handleLogin, isAuthenticated: !!auth, handleLogout}}>
+        <AuthenticationContext.Provider value={{handleRegister, handleLogin, isAuthenticated: !!auth, handleLogout, loading, location}}>
             {children}
         </AuthenticationContext.Provider>
     )
