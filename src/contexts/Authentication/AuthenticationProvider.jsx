@@ -5,6 +5,7 @@ import { AuthenticationContext } from "./AuthenticationContext";
 import { useEffect, useState } from "react";
 import api from '../../api/api'
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const LOGIN_URL = "/auth/login"
 
@@ -26,6 +27,21 @@ export const AuthenticationProvider = ({ children }) => {
     }, [])
     
     
+    const [weather, setWeather] = useState(null);
+
+    const key = "dae7a1408ca4a55c4e819cadfb9e33d9";
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=imperial&appid=${key}`;
+    // https://api.openweathermap.org/data/2.5/weather?q=biguaçu&units=imperial&appid=dae7a1408ca4a55c4e819cadfb9e33d9
+    
+    const openWeather = () =>{
+        axios.get(url)
+        .then((res) => {
+            console.log(res.data)
+            setWeather(res.data);
+        })
+    }
+
+
     const handleLogin = async (data) => {
         alert(JSON.stringify(data));
         
@@ -44,7 +60,9 @@ export const AuthenticationProvider = ({ children }) => {
         api.defaults.headers.Authorization = `Bearer ${accessToken}`;
 
         setLocation(userLocation);
+
         setAuth(loggedUser);
+        openWeather();
         navigate("/");
     }
     
@@ -52,6 +70,7 @@ export const AuthenticationProvider = ({ children }) => {
         setAuth(null);
         sessionStorage.removeItem("user");
         sessionStorage.removeItem("token");
+        sessionStorage.removeItem("location");
         api.defaults.headers.Authorization = null;
         navigate("/login");
     }
@@ -86,7 +105,7 @@ export const AuthenticationProvider = ({ children }) => {
     }
     
     return(
-        <AuthenticationContext.Provider value={{handleRegister, handleLogin, isAuthenticated: !!auth, handleLogout, loading, location}}>
+        <AuthenticationContext.Provider value={{handleRegister, handleLogin, isAuthenticated: !!auth, handleLogout, loading, location, weather}}>
             {children}
         </AuthenticationContext.Provider>
     )

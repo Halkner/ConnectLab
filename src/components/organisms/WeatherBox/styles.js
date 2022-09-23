@@ -9,7 +9,7 @@ export const StyledWeatherContainer = styled.div`
     border-radius: 3px;
 
     &:hover{
-        transform: scale(1.006);
+        transform: scale(1.001);
         cursor: pointer;
     }
 `
