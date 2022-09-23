@@ -14,36 +14,27 @@ export const AuthenticationProvider = ({ children }) => {
     const navigate = useNavigate();
     const [auth, setAuth] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [location, setLocation] = useState('');
+    const [weather, setWeather] = useState(null);
 
     useEffect(() => {
         const recoveredUser = sessionStorage.getItem("user");
         if (recoveredUser){
-            const userLocation = sessionStorage.getItem("location");
             setAuth(JSON.parse(recoveredUser));
-            setLocation(userLocation)
         }
         setLoading(false);
     }, [])
     
-    
-    const [weather, setWeather] = useState(null);
 
-    const key = "dae7a1408ca4a55c4e819cadfb9e33d9";
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=imperial&appid=${key}`;
-    // https://api.openweathermap.org/data/2.5/weather?q=biguaçu&units=imperial&appid=dae7a1408ca4a55c4e819cadfb9e33d9
-    
-    const openWeather = () =>{
-        axios.get(url)
-        .then((res) => {
-            console.log(res.data)
-            setWeather(res.data);
+    const openWeather = (location) =>{
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=imperial&appid=dae7a1408ca4a55c4e819cadfb9e33d9`;
+        axios.get(url).then((response) => {
+            console.log(response.data);
+            setWeather(response.data);
+            console.log(weather);
         })
     }
 
-
     const handleLogin = async (data) => {
-        alert(JSON.stringify(data));
         
         const response = await api.post(LOGIN_URL, data);
         
@@ -55,22 +46,21 @@ export const AuthenticationProvider = ({ children }) => {
         
         sessionStorage.setItem("user", JSON.stringify(loggedUser));
         sessionStorage.setItem("token", accessToken);
-        sessionStorage.setItem("location", userLocation);
+        sessionStorage.setItem("location", userLocation)
 
         api.defaults.headers.Authorization = `Bearer ${accessToken}`;
 
-        setLocation(userLocation);
+        openWeather(userLocation);
 
         setAuth(loggedUser);
-        openWeather();
         navigate("/");
     }
     
     const handleLogout = () => {
         setAuth(null);
+        sessionStorage.removeItem("location")
         sessionStorage.removeItem("user");
         sessionStorage.removeItem("token");
-        sessionStorage.removeItem("location");
         api.defaults.headers.Authorization = null;
         navigate("/login");
     }
@@ -105,7 +95,7 @@ export const AuthenticationProvider = ({ children }) => {
     }
     
     return(
-        <AuthenticationContext.Provider value={{handleRegister, handleLogin, isAuthenticated: !!auth, handleLogout, loading, location, weather}}>
+        <AuthenticationContext.Provider value={{handleRegister, handleLogin, isAuthenticated: !!auth, handleLogout, loading, weather}}>
             {children}
         </AuthenticationContext.Provider>
     )
