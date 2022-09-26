@@ -9,10 +9,11 @@ import PropTypes from "prop-types";
 
 export const DeviceDetails = (props) => {
 
-    const {handleDevice, deleteDevice} = useAuth();
+    const {handleDevice, deleteDevice, closeDetails} = useAuth();
 
     return(
         <ModalOverlay>
+            <span><button onClick={closeDetails}>X</button></span>
             <Box width="350px" height="80%">
                 <StyledDeviceDetails>
 
@@ -27,7 +28,7 @@ export const DeviceDetails = (props) => {
                         </StyledImgContainer>
 
                         <StyledStatusContainer>
-                            <span>Dispositivo {props.status}</span>
+                            <p>Dispositivo {props.status}</p>
                             <button onClick={() => handleDevice(props.id)} className={props.status === "ligado" ? "active" : "inactive"}>
                                 <img src="./src/assets/power.png" alt="Power on/off button" />
                             </button>

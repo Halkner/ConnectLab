@@ -11,7 +11,22 @@ export const ModalOverlay = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    `
+
+    span button{
+        position: absolute;
+        top: 0;
+        right: 15px;
+        font-size: 50px;
+        background-color: transparent;
+        border: none;
+        color: white;
+        cursor:pointer;
+
+        &:hover{
+            color: red;
+        }
+    }
+`
 
 export const StyledDeviceDetails = styled.div`
     display: flex;
@@ -54,12 +69,13 @@ export const StyledImg = styled.img`
 export const StyledStatusContainer = styled.div`
     display:flex;
     align-items: center;
+    justify-content: center;
     width: 100%;
-    justify-content: space-around;
     margin-top: 2em;
 
-    span{
+    p{
         font-size: 18px;
+        margin-right: 1em;
     }
 
     button{

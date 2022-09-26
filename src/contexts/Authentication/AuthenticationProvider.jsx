@@ -256,7 +256,7 @@ export const AuthenticationProvider = ({ children }) => {
         alert(JSON.stringify(data));
     
         const config = {
-            Headers: {
+            headers: {
                 "Authorization": `Bearer ${token}`,
                 "Content-Type": "application/json"
             }
@@ -291,6 +291,10 @@ export const AuthenticationProvider = ({ children }) => {
 
 
         const [showDeviceDetails, setShowDeviceDetails] = useState(null);
+
+        const closeDetails = () => {
+            setShowDeviceDetails(null);
+        }
 
         const openDetails = (id) => {
             console.log(userDevicesList.find((dev) => dev._id === id));
@@ -341,7 +345,8 @@ export const AuthenticationProvider = ({ children }) => {
              updateUser, 
              showDeviceDetails,
              openDetails,
-             deleteDevice}}>
+             deleteDevice,
+             closeDetails}}>
             {children}
         </AuthenticationContext.Provider>
     )

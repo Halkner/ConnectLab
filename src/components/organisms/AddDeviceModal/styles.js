@@ -21,7 +21,7 @@ export const StyledContainer = styled.div`
     align-items: center;
 
     form{
-        width: 100%;
+        width: 90%;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -29,6 +29,7 @@ export const StyledContainer = styled.div`
     }
 
     ${StyledTitle}{
+        text-align: center;
         margin-top: 1.5em;
     }
     

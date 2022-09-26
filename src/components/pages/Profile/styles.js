@@ -6,6 +6,7 @@ export const StyledMain = styled.main`
     width: 100%;
     display: flex;
     justify-content: center;
+    color: ${({theme}) => theme.colors.fontColor};
 `
 
 export const StyledProfileContent = styled.div`
