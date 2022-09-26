@@ -7,6 +7,7 @@ export const ItemMenu = styled.li`
     transition: all 0.5s;
     padding: 10px;
     cursor:pointer;
+    
 
     &:hover{
         color: #FFFFFF;

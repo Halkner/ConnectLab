@@ -1,8 +1,8 @@
-import { StyledWeatherContainer, StyledTitle, StyledContentBox } from "./styles"
+import { StyledWeatherContainer, StyledTitle, StyledContentBox, StyledTemperature, StyledStatus, StyledHumidity } from "./styles"
 import { useAuth } from "../../../contexts/Authentication/useAuth";
 
 export const WeatherBox = () => {
-    const {weather, handleLogout} = useAuth();
+    const {weather} = useAuth();
 
     const setBackground = (weatherState) =>{
         switch (weatherState.weather[0].main){
@@ -57,11 +57,27 @@ export const WeatherBox = () => {
         <>
             <StyledWeatherContainer bg={setBackground(weather)}>
                 <StyledContentBox>
-                    <div>
+                    <div className="city-container">
+                        <img src="https://cdn-icons-png.flaticon.com/512/44/44334.png" alt="Local icon"/>
+                        <StyledTitle>{weather.name}</StyledTitle>
+                    </div>
+                    <div className="temperature-container">
+                        <StyledTemperature>
+                            {Math.round(weather.main.temp) + "º"}
+                        </StyledTemperature>
+                    </div>
+                    <div className="weather-status-container">
+                        <StyledStatus>
+                        <img src="https://cdn-icons-png.flaticon.com/512/2932/2932449.png" alt="Status clima icon"/>
+                            {weather.weather[0].main}
+                        </StyledStatus>
+                        <StyledHumidity>
+                            <img src="https://cdn-icons-png.flaticon.com/512/219/219816.png" alt="Local icon"/>
+                            {weather.main.humidity + "%"}
+                        </StyledHumidity>
                     </div>
                 </StyledContentBox>
             </StyledWeatherContainer>
-            <button onClick={handleLogout}>Logout</button>
         </>
     )
 }

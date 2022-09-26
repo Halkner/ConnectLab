@@ -28,11 +28,26 @@ export const ModalProvider = ({ children }) => {
         setShowRegModal(false);
     }
 
+
+    // Edit Modal
+
+    const [editModalIsOpen, setEditModalIsOpen] = useState(false);
+        
+    const openEditModal = () => {
+        setEditModalIsOpen(true);
+    }
+
+    const closeEditModal = () => {
+        setEditModalIsOpen(false);
+    }
+
+
     return(
         <ModalContext.Provider 
         value={
             {showLoginModal, openLoginModal, closeLoginModal,
-             showRegModal, openRegModal, closeRegModal}
+             showRegModal, openRegModal, closeRegModal,
+            editModalIsOpen, openEditModal, closeEditModal}
         }>
             {children}
         </ModalContext.Provider>

@@ -23,15 +23,17 @@ export const Nav = styled.nav`
         margin-right: 2em;
     }
 
-    .switch-container{
-        height: 100%;
-        display: flex;
-        align-items: center;
-    }
+`
 
-    .switch-container img{
-        filter: invert(100%);
-        width: 16px;
-        margin: 0 10px;
+export const ItemMenu = styled.li`
+    margin-right: 1.5rem;
+    font-size: 20px;
+    color: #00A335;
+    transition: all 0.5s;
+    padding: 10px;
+
+    &:hover{
+        color: #FFFFFF;
+        cursor:pointer;
     }
 `

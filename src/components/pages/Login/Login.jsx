@@ -1,33 +1,21 @@
 import { useModal } from "../../../contexts/Modal/useModal"
-import { Logo } from "../../atoms/Logo";
-import { ItemMenu, Nav, StyledHeader } from "./styles";
-import { LoginModal } from "../../organisms/LoginModal";
+import { StyledMain } from "./styles";
 import { RegisterModal } from "../../organisms/RegisterModal";
+import { TopBarLogin } from "../../organisms/TopBarLogin";
+import { LoginForm } from "../../organisms/LoginForm";
 
 export const Login = () => {
 
-    const {showLoginModal, openLoginModal, showRegModal, openRegModal} = useModal();
+    const {showRegModal} = useModal();
 
     return(
         <>
-            {showLoginModal ? <LoginModal/> : ''}
             {showRegModal ? <RegisterModal/> : '' }
 
-            <StyledHeader>
-                <Nav>
-                    <div>
-                        <Logo/>
-                    </div>
-                    <ul>
-                        <ItemMenu onClick={openLoginModal}>
-                            Login
-                        </ItemMenu>
-                        <ItemMenu onClick={openRegModal}>
-                            Registrar-se
-                        </ItemMenu>
-                    </ul>
-                </Nav>
-            </StyledHeader>
+            <TopBarLogin/>
+            <StyledMain>
+                <LoginForm/>
+            </StyledMain>
 
         </>
     )

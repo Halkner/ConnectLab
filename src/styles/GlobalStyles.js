@@ -7,8 +7,16 @@ export const GlobalStyles = createGlobalStyle`
         text-decoration: none;
     }
 
+    a{
+        color:#00A335;
+    }
+
+    a:visited{
+        color: #00A335;
+    }
+
     body{
-        background-color: #EBEEEE;
+        background-color: ${({theme}) => theme.colors.mainBackground };
     }
 
 `
