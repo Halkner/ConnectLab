@@ -10,14 +10,11 @@ npm i
 
 ## 🛠️ Construído com
 
-React-JS
-
-Mencione as ferramentas que você usou para criar seu projeto
-
 * [VSCode](https://vscode.dev) - IDE
 * [ReactJS](https://reactjs.org) - Biblioteca
 * [JavaScript](https://www.javascript.com) - Linguagem
 ---
+
 ## ⌨️ Redes
 <span align="center"> 
 
