@@ -8,8 +8,6 @@ git clone
 npm i
 ```
 
-exemplo
-
 ## 🛠️ Construído com
 
 React-JS
