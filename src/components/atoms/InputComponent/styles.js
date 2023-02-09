@@ -6,6 +6,7 @@ export const StyledInput = styled.input`
     outline: none;
     padding: 5px;
     border-style: solid;
+    border-radius: 3px;
     border-color: rgba(0, 0, 0, 0.3);
 
     &:focus, &:hover{

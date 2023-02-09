@@ -1,9 +1,10 @@
 export const LightTheme = {
     colors:{
+        white: "#fff",
         primaryColor: "#00C23A",
         secondaryColor: "#00a335",
-        mainBackground: "#EBEEEE",
-        fontColor: "#0d1117",
+        mainBackground: "#f0f0f0",
+        fontColor: "#373D3F",
         borderColor: "#00C23A",
         cancelColor: "#d72736"
     },
